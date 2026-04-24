@@ -1,0 +1,447 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RF Premier Ventures</title>
+  <style>
+    :root {
+      --gold: #d4af37;
+      --black: #111111;
+      --text: #1a1a1a;
+      --white: #ffffff;
+      --muted: #555555;
+      --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.07);
+      --radius: 14px;
+      --max-width: 1150px;
+      --section-space: 90px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.65;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(92%, var(--max-width));
+      margin: 0 auto;
+    }
+
+    .marble-bg {
+      background-color: #fafafa;
+      background-image:
+        radial-gradient(circle at 12% 20%, rgba(255, 255, 255, 0.85) 0%, rgba(247, 247, 247, 0.9) 28%, rgba(242, 242, 242, 0.95) 100%),
+        linear-gradient(120deg, rgba(0, 0, 0, 0.018) 0%, rgba(255, 255, 255, 0) 30%, rgba(0, 0, 0, 0.02) 55%, rgba(255, 255, 255, 0) 80%),
+        linear-gradient(25deg, rgba(0, 0, 0, 0.015) 0%, rgba(255, 255, 255, 0) 35%, rgba(0, 0, 0, 0.016) 65%, rgba(255, 255, 255, 0) 100%);
+    }
+
+    /* Navigation */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--white);
+      border-bottom: 1.5px solid rgba(212, 175, 55, 0.8);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      min-height: 68px;
+    }
+
+    .brand {
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      font-size: 0.95rem;
+      color: var(--black);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--black);
+      font-weight: 500;
+      transition: color 0.25s ease;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 1.5px;
+      background: var(--gold);
+      transition: width 0.25s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 120px 0 110px;
+      text-align: center;
+    }
+
+    .hero-logo {
+      width: 130px;
+      margin: 0 auto 26px;
+      filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.16));
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 3.4vw, 3rem);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: #2c2c2c;
+      margin-bottom: 36px;
+    }
+
+    .btn-gold {
+      display: inline-block;
+      background: var(--gold);
+      color: #1e1e1e;
+      font-weight: 600;
+      padding: 14px 30px;
+      border-radius: 999px;
+      box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(212, 175, 55, 0.35);
+      filter: brightness(1.02);
+    }
+
+    section {
+      padding: var(--section-space) 0;
+    }
+
+    /* Services */
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+      color: var(--black);
+      font-size: clamp(1.5rem, 2.7vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-top: 3px solid var(--gold);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-card);
+      padding: 28px 24px;
+      transition: transform 0.28s ease, box-shadow 0.28s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.1);
+    }
+
+    .service-card h3 {
+      color: var(--gold);
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .service-card p {
+      color: #2d2d2d;
+      font-size: 0.95rem;
+    }
+
+    /* About */
+    .about {
+      text-align: center;
+    }
+
+    .gold-divider {
+      width: 80px;
+      height: 2.5px;
+      background: var(--gold);
+      margin: 14px auto 24px;
+      border-radius: 3px;
+    }
+
+    .about p {
+      width: min(92%, 780px);
+      margin: 0 auto;
+      color: #262626;
+      font-size: 1.02rem;
+    }
+
+    /* CEO */
+    .ceo-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 42px;
+      align-items: center;
+    }
+
+    .ceo-image {
+      border: 2px solid var(--gold);
+      border-radius: 18px;
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      background: #f7f7f7;
+    }
+
+    .ceo-details h3 {
+      font-size: clamp(1.4rem, 2.4vw, 2rem);
+      color: var(--black);
+      margin-bottom: 8px;
+    }
+
+    .ceo-role {
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 18px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.95rem;
+    }
+
+    .ceo-details p {
+      color: #2b2b2b;
+      max-width: 600px;
+    }
+
+    /* Contact */
+    .contact {
+      text-align: center;
+    }
+
+    .contact-logo {
+      width: 90px;
+      margin: 0 auto 20px;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.12));
+    }
+
+    .contact-info {
+      display: grid;
+      gap: 10px;
+      font-size: 1rem;
+      color: #1f1f1f;
+    }
+
+    .contact-info strong {
+      color: var(--gold);
+      font-weight: 700;
+      margin-right: 6px;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--white);
+      border-top: 1.5px solid rgba(212, 175, 55, 0.8);
+      text-align: center;
+      padding: 24px 0;
+      color: #333333;
+      font-size: 0.92rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .ceo-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .ceo-image {
+        max-width: 560px;
+        margin: 0 auto;
+      }
+
+      .ceo-details {
+        text-align: center;
+      }
+
+      .ceo-details p {
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 700px) {
+      :root {
+        --section-space: 72px;
+      }
+
+      .nav-inner {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .nav-links {
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero {
+        padding-top: 95px;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="#home" class="brand">RF Premier Ventures</a>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#ceo">CEO</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero marble-bg">
+      <div class="container">
+        <img class="hero-logo" src="logo.png" alt="RF Premier Ventures Logo" />
+        <h1>RF PREMIER VENTURES</h1>
+        <p>Empowering Ideas. Creating Impact.</p>
+        <a class="btn-gold" href="#services">Explore Services</a>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <h2 class="section-title">Our Premium Services</h2>
+        <div class="services-grid">
+          <article class="service-card">
+            <h3>Event Management</h3>
+            <p>End-to-end planning and execution for polished, impactful corporate and private events.</p>
+          </article>
+
+          <article class="service-card">
+            <h3>Event Consultancy</h3>
+            <p>Strategic advisory for event concepts, operations, branding, and audience engagement.</p>
+          </article>
+
+          <article class="service-card">
+            <h3>Healthcare Products</h3>
+            <p>Trusted healthcare product sourcing and distribution focused on quality and reliability.</p>
+          </article>
+
+          <article class="service-card">
+            <h3>Early Childhood Services</h3>
+            <p>Professional early childhood programs designed to support growth, care, and development.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about marble-bg">
+      <div class="container">
+        <h2 class="section-title">About RF Premier Ventures</h2>
+        <div class="gold-divider"></div>
+        <p>
+          RF Premier Ventures is built on a commitment to excellence, innovation, and meaningful partnerships.
+          We deliver premium services with a modern corporate approach that balances precision, warmth, and long-term impact.
+        </p>
+      </div>
+    </section>
+
+    <section id="ceo">
+      <div class="container ceo-wrap">
+        <div class="ceo-image">
+          <img src="ceo.jpg" alt="Rina Fadzil, Chief Executive Officer" />
+        </div>
+        <div class="ceo-details">
+          <h3>Rina Fadzil</h3>
+          <p class="ceo-role">Chief Executive Officer</p>
+          <p>
+            Rina Fadzil leads RF Premier Ventures with a vision rooted in strategic growth and purposeful leadership.
+            Her dedication to quality, trust, and innovation continues to shape a premium brand experience that empowers clients and communities.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="container">
+        <h2 class="section-title">Contact Us</h2>
+        <img class="contact-logo" src="logo.png" alt="RF Premier Ventures Logo" />
+        <div class="contact-info">
+          <p><strong>Email:</strong> Mil_na@yahoo.com</p>
+          <p><strong>Location:</strong> Kuala Lumpur, Malaysia</p>
+          <p><strong>WhatsApp:</strong> 016-539 5398</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 RF Premier Ventures. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
+```
